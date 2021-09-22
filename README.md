@@ -68,3 +68,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+#Add libs
+npm install axios axios-hooks
+npm install react-router-dom
+npm install jwt-decode
+npm install @material-ui/core @material-ui/data-grid @material-ui/icons @material-ui/lab @material-ui/pickers @material-ui/styles
+npm install clsx
+npm install yup  // https://www.npmjs.com/package/yup
+npm install formik https://formik.org/docs/overview
+npm i lodash // _
+
+ 
+
