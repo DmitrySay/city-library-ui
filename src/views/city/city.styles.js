@@ -25,5 +25,13 @@ export default makeStyles((theme) => ({
         '& span:nth-child(2)': {
             marginTop: '0',
         },
+    },
+    image: {
+        height: '400px',
+        width: '600px'
+    },
+    header:{
+        display: "inherit"
     }
+
 }));

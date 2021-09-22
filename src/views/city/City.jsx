@@ -4,9 +4,10 @@ import {useHistory, useParams} from "react-router-dom";
 import useStyles from "./city.styles";
 import {Button} from "@material-ui/core";
 import PATHS from '../../router/paths';
-import Modal from "../../Modal";
+import Modal from "../../components/modal";
 import EditIcon from '@material-ui/icons/Edit';
 import CityForm from "./CityForm";
+import {useAuth} from "../../context/AuthContext";
 
 const City = () => {
     const history = useHistory();
@@ -14,8 +15,11 @@ const City = () => {
     const {cityId} = useParams()
     const [city, setCity] = useState({});
     const [openEditModal, setOpenEditModal] = useState(false);
+    const {profile} = useAuth();
+    //todo check permissions
 
     const fetchCityHandler = useCallback(() => {
+
         getCityById(cityId)
             .then(response => {
                 setCity(response.data);
@@ -37,33 +41,33 @@ const City = () => {
         <>
             <div className={classes.root}>
                 <div className={classes.city}>
-                    <h1>{city.name}</h1>
-                    <Button
-                        size="small"
-                        className={classes.editButton}
-                        startIcon={<EditIcon/>}
-                        onClick={() => setOpenEditModal(true)}
-                    >
-                        edit
-                    </Button>
+                    <div className={classes.header}>
+                        <h1>{city.name}</h1>
+                        <Button
+                            size="small"
+                            className={classes.editButton}
+                            startIcon={<EditIcon/>}
+                            onClick={() => setOpenEditModal(true)}
+                        >
+                            edit
+                        </Button>
+                    </div>
                     <Modal
                         white
                         title="Edit"
                         open={openEditModal}
                         onClose={() => setOpenEditModal(false)
                         }>
-
                         <CityForm
                             city={city}
-                            setOpenEditModal={setOpenEditModal}
-                        />
-
+                            setCity={setCity}
+                            setOpenEditModal={setOpenEditModal}/>
                     </Modal>
-                    <img
-                        src={`${city.photo}?w=164&h=164&fit=crop&auto=format`}
-                        srcSet={`${city.photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                        alt={city.name}
-                        loading="lazy"
+                    <img className={classes.image}
+                         src={`${city.photo}`}
+                         srcSet={`${city.photo}`}
+                         alt={city.name}
+                         loading="lazy"
                     />
                     <Button color="primary" variant="contained" onClick={returnHandle}>
                         Return

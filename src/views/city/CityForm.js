@@ -1,26 +1,45 @@
-import {Fragment, useRef} from 'react';
+import {Fragment, useState} from 'react';
 import classes from './cityForm.module.css';
+import {updateCity} from "../../api/requests/city";
 
 const CityForm = ({
                       city,
+                      setCity = () => {
+                      },
                       setOpenEditModal = () => {
                       }
                   }) => {
 
-    const cityNameInputRef = useRef();
-    const cityPhotoInputRef = useRef();
+    const [name, setName] = useState(city.name);
+    const [photo, setPhoto] = useState(city.photo);
+
+    const nameChangeHandler = (e) => {
+        let name = e.target.value;
+        setName(name)
+    }
+    const photoChangeHandler = (e) => {
+        let photo = e.target.value;
+        setPhoto(photo)
+    }
 
     function submitFormHandler(event) {
         event.preventDefault();
+        let formCity = {
+            id: city.id,
+            name: name,
+            photo: photo
+        }
+          updateCity(formCity)
+            .then(response => {
+                setCity(response.data);
+            })
+            .catch(error => {
+                throw new Error('Something went wrong. Try again.')
+            })
 
-        const enteredAuthor = cityNameInputRef.current.value;
-        const enteredText = cityPhotoInputRef.current.value;
-
-        console.log("submitFormHandler", enteredAuthor, enteredText)
-        setOpenEditModal(false);
-
-        //todo update
+         setOpenEditModal(false);
     }
+
 
     return (
         <Fragment>
@@ -30,11 +49,18 @@ const CityForm = ({
             >
                 <div className={classes.control}>
                     <label htmlFor='name'>City name</label>
-                    <input type='text' id='author' ref={cityNameInputRef} value={city.name}/>
+                    <input type='text' id='name'
+                           value={name}
+                           onChange={nameChangeHandler}
+                    />
                 </div>
                 <div className={classes.control}>
-                    <label htmlFor='photo'>Text</label>
-                    <textarea id='photo' rows='5' ref={cityPhotoInputRef} value={city.photo}/>
+                    <label htmlFor='photo'>City photo</label>
+                    <textarea id='photo'
+                              rows='5'
+                              value={photo}
+                              onChange={photoChangeHandler}
+                    />
                 </div>
                 <div className={classes.actions}>
                     <button className='btn'>Update</button>

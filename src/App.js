@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Link as RouterLink, Redirect, Route, Switch as RouterSwitch,} from 'react-router-dom';
-//import AxiosInterceptors from './api/axiosInterceptors';
+import AxiosInterceptors from './api/axiosInterceptors';
 import AppContextProvider from './store/CombinedContextProvider';
 import PATHS from './router/paths';
 import {ThemeProvider} from '@material-ui/styles';
@@ -18,7 +18,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <Router>
                 <AppContextProvider>
-                    {/*<AxiosInterceptors>*/}
+                    <AxiosInterceptors>
                     <Header/>
                     <div>
                         <RouterSwitch>
@@ -32,7 +32,7 @@ function App() {
                         </RouterSwitch>
                     </div>
                     <Footer/>
-                    {/*</AxiosInterceptors>*/}
+                    </AxiosInterceptors>
                 </AppContextProvider>
             </Router>
         </ThemeProvider>

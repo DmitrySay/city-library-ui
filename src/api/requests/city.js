@@ -8,7 +8,7 @@ export const getCities = () => {
         headers: {'Content-Type': 'application/json'},
         method: ApiMethod.GET,
         baseURL: HttpConfig.domains.api,
-        url: `${endpoints.CITY.ROOT}?size=12`
+        url: `${endpoints.CITY.ROOT}?size=12&sort=id`
     });
 };
 
@@ -18,5 +18,15 @@ export const getCityById = (cityId) => {
         method: ApiMethod.GET,
         baseURL: HttpConfig.domains.api,
         url: `${endpoints.CITY.ROOT}/${cityId}`
+    });
+};
+
+export const updateCity = (data) => {
+    return axios({
+        headers: {'Content-Type': 'application/json'},
+        method: ApiMethod.PUT,
+        baseURL: HttpConfig.domains.api,
+        url: `${endpoints.CITY.ROOT}/${data.id}`,
+        data: data,
     });
 };

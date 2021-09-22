@@ -6,12 +6,15 @@ import {useAuth} from "../../../context/AuthContext";
 import {
     Avatar,
     Button,
-    ClickAwayListener, Fade,
+    ClickAwayListener,
+    Fade,
     Grid,
     List,
     ListItem,
     ListItemIcon,
-    ListItemText, Paper, Popper,
+    ListItemText,
+    Paper,
+    Popper,
     Tooltip,
     Typography
 } from "@material-ui/core";
@@ -25,7 +28,7 @@ const Header = () => {
     const history = useHistory();
     const classes = useStyles();
     const location = useLocation();
-    const { profile, invalidateToken } = useAuth();
+    const {profile, invalidateToken} = useAuth();
     const profileAnchorRef = useRef(null);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
 
@@ -78,7 +81,7 @@ const Header = () => {
                             <Paper>
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <Grid container justifyContent="center" direction="column">
-                                        <Grid item xs={12} container justify="center" alignItems="center">
+                                        <Grid item xs={12} container justifyContent="center" alignItems="center">
                                             <Grid
                                                 item
                                                 xs={12}
