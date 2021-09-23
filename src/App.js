@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {BrowserRouter as Router, Link as RouterLink, Redirect, Route, Switch as RouterSwitch,} from 'react-router-dom';
 import AxiosInterceptors from './api/axiosInterceptors';
 import AppContextProvider from './store/CombinedContextProvider';
@@ -12,29 +12,59 @@ import Footer from './views/layout/footer';
 import CityList from "./views/cityList/CityList";
 import SignIn from "./views/auth/SignIn";
 import City from "./views/city/City";
+import {SnackbarProvider} from "notistack";
 
 function App() {
+    const notistackRef = useRef();
+    const onClickDismiss = (key) => () => {
+        notistackRef.current.closeSnackbar(key);
+    };
+
+
     return (
         <ThemeProvider theme={theme}>
-            <Router>
-                <AppContextProvider>
-                    <AxiosInterceptors>
-                    <Header/>
-                    <div>
-                        <RouterSwitch>
-                            <Route exact path="/" render={() => <Redirect to={{pathname: PATHS.cities}}/>}/>
-                            <Route path={`${PATHS.cities}`} exact component={CityList}/>
-                            <Route path={`${PATHS.city}`} exact component={City}/>
-                            <Route path={`${PATHS.signIn}`} component={SignIn}/>
-                            <Route path="*">
-                                <NoMatch/>
-                            </Route>
-                        </RouterSwitch>
-                    </div>
-                    <Footer/>
-                    </AxiosInterceptors>
-                </AppContextProvider>
-            </Router>
+            <SnackbarProvider
+                ref={notistackRef}
+                maxSnack={3}
+                autoHideDuration={5000}
+                variant="success"
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                action={(key) => (
+                    <Button
+                        onClick={onClickDismiss(key)}
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            left: 0,
+                            position: 'absolute',
+                            top: 0,
+                        }}
+                    />
+                )}
+            >
+                <Router>
+                    <AppContextProvider>
+                        <AxiosInterceptors>
+                            <Header/>
+                            <div>
+                                <RouterSwitch>
+                                    <Route exact path="/" render={() => <Redirect to={{pathname: PATHS.cities}}/>}/>
+                                    <Route path={`${PATHS.cities}`} exact component={CityList}/>
+                                    <Route path={`${PATHS.city}`} exact component={City}/>
+                                    <Route path={`${PATHS.signIn}`} component={SignIn}/>
+                                    <Route path="*">
+                                        <NoMatch/>
+                                    </Route>
+                                </RouterSwitch>
+                            </div>
+                            <Footer/>
+                        </AxiosInterceptors>
+                    </AppContextProvider>
+                </Router>
+            </SnackbarProvider>
         </ThemeProvider>
     );
 

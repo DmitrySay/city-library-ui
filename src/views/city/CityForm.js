@@ -34,7 +34,7 @@ const CityForm = ({
                 setCity(response.data);
             })
             .catch(error => {
-                throw new Error('Something went wrong. Try again.')
+                //todo alert no permission
             })
 
          setOpenEditModal(false);

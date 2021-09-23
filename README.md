@@ -79,6 +79,7 @@ npm install clsx
 npm install yup  // https://www.npmjs.com/package/yup
 npm install formik https://formik.org/docs/overview
 npm i lodash // _
+npm install notistack
 
  
 
