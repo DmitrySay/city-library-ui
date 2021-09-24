@@ -1,13 +1,22 @@
 import React from 'react';
 
-export const loginTimeoutError = [
-    <p>
-        Your login has expired.
-        <br/> Please log in again to continue.
-    </p>,
-    {
-        variant: 'error',
-        preventDuplicate: true,
-    },
-];
+export function generateSuccessNotification(message) {
+    return [
+        <p>{message}</p>,
+        {
+            variant: 'success',
+            preventDuplicate: true,
+        },
+    ];
+}
+
+export function generateErrorNotification(message) {
+    return [
+        <p>{message}</p>,
+        {
+            variant: 'error',
+            preventDuplicate: true,
+        },
+    ];
+}
 

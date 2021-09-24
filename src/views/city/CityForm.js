@@ -1,6 +1,8 @@
-import {Fragment, useState} from 'react';
+import {useState} from 'react';
 import classes from './cityForm.module.css';
 import {updateCity} from "../../api/requests/city";
+import {generateErrorNotification, generateSuccessNotification} from "../../templates/notifications";
+import {useSnackbar} from "notistack";
 
 const CityForm = ({
                       city,
@@ -9,7 +11,7 @@ const CityForm = ({
                       setOpenEditModal = () => {
                       }
                   }) => {
-
+    const {enqueueSnackbar} = useSnackbar();
     const [name, setName] = useState(city.name);
     const [photo, setPhoto] = useState(city.photo);
 
@@ -29,20 +31,23 @@ const CityForm = ({
             name: name,
             photo: photo
         }
-          updateCity(formCity)
+        updateCity(formCity)
             .then(response => {
                 setCity(response.data);
+                enqueueSnackbar(
+                    ...generateSuccessNotification('Updated!')
+                );
             })
             .catch(error => {
-                //todo alert no permission
+                enqueueSnackbar(
+                    ...generateErrorNotification('Something went wrong. Try again later.')
+                );
             })
-
-         setOpenEditModal(false);
+        setOpenEditModal(false);
     }
 
-
     return (
-        <Fragment>
+        <>
             <form
                 className={classes.form}
                 onSubmit={submitFormHandler}
@@ -66,8 +71,7 @@ const CityForm = ({
                     <button className='btn'>Update</button>
                 </div>
             </form>
-
-        </Fragment>
+        </>
     );
 };
 

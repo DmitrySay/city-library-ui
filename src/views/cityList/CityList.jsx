@@ -4,8 +4,11 @@ import {getCities} from "../../api/requests/city";
 import {ImageList, ImageListItem} from "@material-ui/core";
 import {useHistory} from "react-router-dom";
 import PATHS from '../../router/paths';
+import {useSnackbar} from "notistack";
+import {generateErrorNotification} from '../../templates/notifications';
 
 const CityList = () => {
+    const {enqueueSnackbar} = useSnackbar();
     const history = useHistory();
     const classes = useStyles();
     const [cities, setCities] = useState([]);
@@ -17,6 +20,9 @@ const CityList = () => {
             })
             .catch((error) => {
                 console.error("error", error)
+                enqueueSnackbar(
+                    ...generateErrorNotification('Something went wrong. Try again later.')
+                );
             })
     }, [])
 

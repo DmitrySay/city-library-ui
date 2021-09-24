@@ -8,24 +8,29 @@ import Modal from "../../components/modal";
 import EditIcon from '@material-ui/icons/Edit';
 import CityForm from "./CityForm";
 import {useAuth} from "../../context/AuthContext";
+import {generateErrorNotification} from "../../templates/notifications";
+import {useSnackbar} from "notistack";
+import {AuthService} from "../../services/auth.service";
 
 const City = () => {
+    const {enqueueSnackbar} = useSnackbar();
     const history = useHistory();
     const classes = useStyles();
     const {cityId} = useParams()
     const [city, setCity] = useState({});
     const [openEditModal, setOpenEditModal] = useState(false);
     const {profile} = useAuth();
-    //todo check permissions
 
     const fetchCityHandler = useCallback(() => {
-
         getCityById(cityId)
             .then(response => {
                 setCity(response.data);
             })
             .catch((error) => {
-                console.log("error", error)
+                console.error("error", error)
+                enqueueSnackbar(
+                    ...generateErrorNotification('Something went wrong. Try again later.')
+                );
             })
     }, [cityId])
 
@@ -43,18 +48,18 @@ const City = () => {
                 <div className={classes.city}>
                     <div className={classes.header}>
                         <h1>{city.name}</h1>
-                        <Button
-                            size="small"
-                            className={classes.editButton}
-                            startIcon={<EditIcon/>}
-                            onClick={() => setOpenEditModal(true)}
-                        >
-                            edit
-                        </Button>
+                        {AuthService.checkEditPermission(profile) && (
+                            <Button
+                                size="small"
+                                className={classes.editButton}
+                                startIcon={<EditIcon/>}
+                                onClick={() => setOpenEditModal(true)}
+                            >
+                                edit
+                            </Button>)}
                     </div>
                     <Modal
                         white
-                        title="Edit"
                         open={openEditModal}
                         onClose={() => setOpenEditModal(false)
                         }>

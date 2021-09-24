@@ -29,4 +29,27 @@ export class AuthService {
             return true;
         }
     }
+
+    static checkEditPermission(profile) {
+        const authorities = ["AUTHORITY_ALL", "AUTHORITY_EDIT"];
+        if (profile === null) {
+            return false;
+        }
+        let roles = profile.roles;
+        if (roles === null) {
+            return false;
+        }
+        let permissions = [];
+        roles.forEach((role) => {
+            let perms = role.permissions;
+            if (perms !== null) {
+                perms.forEach((permission) => {
+                    if (authorities.includes(permission.name)) {
+                        permissions.push(permission);
+                    }
+                })
+            }
+        })
+        return permissions.length > 0;
+    }
 }
