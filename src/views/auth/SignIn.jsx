@@ -9,7 +9,7 @@ import logo from '../../assets/logo.svg';
 import {useAuth} from '../../context/AuthContext';
 import PATHS from '../../router/paths';
 import useStyles from './auth.styles';
-import AuthFormTextField from '../../components/auth/formTextField';
+import FormTextField from '../../components/auth/formTextField';
 import * as yup from "yup";
 
 const SignIn = (props) => {
@@ -54,7 +54,7 @@ const SignIn = (props) => {
                     </Typography>
                     <img src={logo} alt="logo" className={classes.logo} />
                     <form onSubmit={formik.handleSubmit}>
-                        <AuthFormTextField
+                        <FormTextField
                             autoFocus
                             name="email"
                             label="email"
@@ -71,7 +71,7 @@ const SignIn = (props) => {
                                 ),
                             }}
                         />
-                        <AuthFormTextField
+                        <FormTextField
                             id="password"
                             name="password"
                             label="password"

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TextField } from '@material-ui/core';
 
-const AuthFormTextField = ({ name, label, formik, ...props }) => {
+const FormTextField = ({ name, label, formik, ...props }) => {
   return (
     <TextField
       fullWidth
@@ -24,4 +24,4 @@ const AuthFormTextField = ({ name, label, formik, ...props }) => {
   );
 };
 
-export default AuthFormTextField;
+export default FormTextField;
