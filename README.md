@@ -1,10 +1,17 @@
-# This is React UI for city-library-be application
+## This is UI for city-library application
 
-- To create ui image and up application see/run startup.sh file
+- To create ui image and start ui application run startup.sh file
 
 `bash startup.sh `
 
 - Open url in browser http://localhost
+
+###The link to city-library backend 
+- https://github.com/DmitrySay/city-library
+
+- Download backend and in root folder run
+`bash startup.sh `
+
 
 
 
