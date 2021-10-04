@@ -3,12 +3,16 @@ import {HttpConfig} from '../../constants/HttpConfig';
 import {ApiMethod} from '../methods'
 import * as endpoints from '../endpoints';
 
-export const getCities = () => {
+export const getCities = (query, page) => {
+    let url = `${endpoints.CITY.ROOT}?size=12&sort=id&page=${page-1}`;
+    if (query) {
+        url = `${endpoints.CITY.ROOT}?size=12&sort=id&search=${query}`;
+    }
     return axios({
         headers: {'Content-Type': 'application/json'},
         method: ApiMethod.GET,
         baseURL: HttpConfig.domains.api,
-        url: `${endpoints.CITY.ROOT}?size=12&sort=id`
+        url: url
     });
 };
 

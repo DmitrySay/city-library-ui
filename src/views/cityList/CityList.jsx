@@ -1,22 +1,34 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import useStyles from "./cities.styles";
 import {getCities} from "../../api/requests/city";
-import {ImageList, ImageListItem} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {useHistory} from "react-router-dom";
 import PATHS from '../../router/paths';
 import {useSnackbar} from "notistack";
 import {generateErrorNotification} from '../../templates/notifications';
+import {Pagination} from "@material-ui/lab";
+import CityImageList from "./CityImageList";
 
 const CityList = () => {
     const {enqueueSnackbar} = useSnackbar();
     const history = useHistory();
     const classes = useStyles();
     const [cities, setCities] = useState([]);
+    const [inputSearchValue, setInputSearchValue] = useState('');
+
+    const [totalPages, setTotalPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const searchChangeHandler = (event) => {
+        const inputSearchValue = event.target.value;
+        setInputSearchValue(inputSearchValue);
+    }
 
     const fetchCitiesHandler = useCallback(() => {
-        getCities()
+        getCities(inputSearchValue, currentPage)
             .then(response => {
                 setCities(response.data.content);
+                setTotalPages(response.data.totalPages);
             })
             .catch((error) => {
                 console.error("error", error)
@@ -24,7 +36,7 @@ const CityList = () => {
                     ...generateErrorNotification('Something went wrong. Try again later.')
                 );
             })
-    }, [])
+    }, [currentPage, inputSearchValue])
 
     useEffect(() => {
         fetchCitiesHandler();
@@ -34,23 +46,34 @@ const CityList = () => {
         history.push(`${PATHS.cities}/` + cityId);
     }
 
+    const handleChangePage = (event, newPage) => {
+        setCurrentPage(newPage);
+    };
+
+
     return (
         <>
             <div className={classes.root}>
                 <section className={classes.section}>
-                    <ImageList sx={{width: 500, height: 450}} cols={3} rowHeight={164}>
-                        {cities.map((city) => (
-                            <ImageListItem key={city.id}>
-                                <img
-                                    src={`${city.photo}?w=164&h=164&fit=crop&auto=format`}
-                                    srcSet={`${city.photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                    alt={city.name}
-                                    loading="lazy"
-                                    onClick={() => handleClick(city.id)}
-                                />
-                            </ImageListItem>
-                        ))}
-                    </ImageList>
+                    <TextField
+                        variant="outlined"
+                        placeholder="SEARCH CITY BY NAME"
+                        onChange={searchChangeHandler}
+                        value={inputSearchValue}
+                    />
+                    <CityImageList
+                        handleClick = {handleClick}
+                        cities={cities}
+                    />
+                    <Pagination
+                        count={totalPages}
+                        showFirstButton
+                        showLastButton
+                        onChange={handleChangePage}
+                        page={currentPage}
+                        shape="rounded"
+                        color="secondary"
+                    />
                 </section>
             </div>
         </>
