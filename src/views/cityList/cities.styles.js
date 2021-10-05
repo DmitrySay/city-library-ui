@@ -6,7 +6,11 @@ export default makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    section:{
+    section: {
         padding: '20px'
+    },
+    image: {
+        minWidth: '350px',
+        minHeight: '350px',
     }
 }));

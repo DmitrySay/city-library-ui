@@ -4,10 +4,7 @@ import {ApiMethod} from '../methods'
 import * as endpoints from '../endpoints';
 
 export const getCities = (query, page) => {
-    let url = `${endpoints.CITY.ROOT}?size=12&sort=id&page=${page-1}`;
-    if (query) {
-        url = `${endpoints.CITY.ROOT}?size=12&sort=id&search=${query}`;
-    }
+    let url = `${endpoints.CITY.ROOT}?size=12&sort=id&page=${page-1}&search=${query}`;
     return axios({
         headers: {'Content-Type': 'application/json'},
         method: ApiMethod.GET,

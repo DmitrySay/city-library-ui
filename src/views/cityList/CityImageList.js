@@ -1,19 +1,21 @@
-import {ImageList, ImageListItem} from "@material-ui/core";
 import React from "react";
+import {ImageList, ImageListItem} from "@material-ui/core";
+import useStyles from "./cities.styles";
 
 const CityImageList = (props) => {
+    const classes = useStyles();
 
     if (props.cities.length === 0) {
         return <h2 style={{margin: '100px'}}> No cities found! </h2>
     }
 
     return (
-        <ImageList sx={{width: 500, height: 450}} cols={3} rowHeight={164}>
+        <ImageList  cols={3} rowHeight={200}>
             {props.cities.map((city) => (
                 <ImageListItem key={city.id}>
-                    <img
-                        src={`${city.photo}?w=164&h=164&fit=crop&auto=format`}
-                        srcSet={`${city.photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    <img className={classes.image}
+                        src={`${city.photo}`}
+                        srcSet={`${city.photo}`}
                         alt={city.name}
                         loading="lazy"
                         onClick={() => props.handleClick(city.id)}

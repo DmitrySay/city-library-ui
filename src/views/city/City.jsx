@@ -69,8 +69,8 @@ const City = () => {
                             setOpenEditModal={setOpenEditModal}/>
                     </Modal>
                     <img className={classes.image}
-                         src={`${city.photo}`}
-                         srcSet={`${city.photo}`}
+                         src={city.photo}
+                         srcSet={city.photo}
                          alt={city.name}
                          loading="lazy"
                     />
