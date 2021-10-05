@@ -13,6 +13,3 @@ services:
 networks:
   web:
     driver: "bridge"
-
-volumes:
-  db-volume: { }
