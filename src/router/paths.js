@@ -1,5 +1,5 @@
 export default {
-    signIn: '/signin',
-    cities: '/cities',
-    city: '/cities/:cityId'
+  signIn: '/signin',
+  cities: '/cities',
+  city: '/cities/:cityId',
 };

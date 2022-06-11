@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { AuthProvider } from '../context/AuthContext';
 
-
 const providers = [
-  AuthProvider
+  AuthProvider,
 ];
 
 const combineProviders = (providers) => {
@@ -18,7 +16,7 @@ const combineProviders = (providers) => {
         );
       };
     },
-    ({ children }) => <>{children}</>
+    ({ children }) => <>{children}</>,
   );
 };
 

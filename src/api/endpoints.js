@@ -1,6 +1,6 @@
 export const AUTH = {
   LOGIN: '/auth/login',
-  ME: '/auth/me'
+  ME: '/auth/me',
 };
 
 export const CITY = {

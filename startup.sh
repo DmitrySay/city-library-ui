@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #build react app
-npm install && npm run build
+npm install
+npm run build
 
 #create docker image
 docker build -t  city-library-ui:latest .

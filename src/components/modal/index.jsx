@@ -1,21 +1,18 @@
 import React from 'react';
-
-import { Dialog, Button } from '@material-ui/core';
+import { Button, Dialog } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-
 import useStyles from './modal.styles';
 
 const Modal = ({
-  title = '',
-  onClose = () => {},
-  className,
-  children,
-  white,
-  hideCloseButton = false,
-  ...props
-}) => {
+                 title = '',
+                 onClose = () => {},
+                 className,
+                 children,
+                 white,
+                 hideCloseButton = false,
+                 ...props
+               }) => {
   const classes = useStyles();
-
   return (
     <Dialog
       PaperProps={{ className: [classes.wrapper, className] }}
