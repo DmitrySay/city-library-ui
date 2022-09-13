@@ -4,13 +4,7 @@ import { updateCity } from '../../api/requests/city';
 import { generateErrorNotification, generateSuccessNotification } from '../../templates/notifications';
 import { useSnackbar } from 'notistack';
 
-const CityForm = ({
-                    city,
-                    setCity = () => {
-                    },
-                    setOpenEditModal = () => {
-                    },
-                  }) => {
+const CityForm = ({ city, setCity = () => {}, setOpenEditModal = () => {} }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [name, setName] = useState(city.name);
   const [photo, setPhoto] = useState(city.photo);

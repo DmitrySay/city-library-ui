@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   static checkEditPermission(profile) {
-    const authorities = ['AUTHORITY_ALL', 'AUTHORITY_EDIT'];
+    const authorities = ['ALL', 'EDIT'];
     let roles = profile?.roles ?? [];
     let permissions = [];
     roles.forEach((role) => {
